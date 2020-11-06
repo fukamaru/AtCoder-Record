@@ -24,7 +24,7 @@ ___
 入力は以下の形式で標準入力から与えられる。
 
 ```
-_S_
+$$_S_$$
 ```
 
 **出力**
@@ -82,7 +82,9 @@ bool solve()
   string s;
   cin >> s;
   
+  //如果输入数字为个位数，只需判断其是否等于8
   if(s.size() == 1) return s == "8";
+  //如果输入数字为两位数，只需判断其本身和十位数个位数互换后的两个数字是否为8的倍数即可
   if(s.size() == 2)
   {
       if(stoi(s) % 8 == 0) return 1;
@@ -90,19 +92,25 @@ bool solve()
       return stoi(s) % 8 == 0;
   }
   
+  //最后考虑输入数字位数大于2的情况
+  //创建一个向量用于储存输入数字中1～9每个数的出现次数
   vector<int> cnt(10);
   for(char x: s) cnt[x - '0'] ++;
-  for(int i = 112; i < 100; i += 8)
+  //利用for循环判断1～9出现次数与8的倍数之间的一致性，若一致则该输入数字可以组织为8的倍数的形式
+  for(int i = 112; i < 1000; i += 8)
   {
       auto c = cnt;
+      //复制存储出现次数的向量，并减去当前作为判断基准的倍数中相应数字的出现次数
       for(char x : to_string(i)) c[x - '0'] --;
-      if(all_of(c.begin(), c.end(), [](int x) {return x >= 0; })) return 1;
+      //若经过排列后可被8整除，则其和某个8的倍数中每个数字的出现次数均一致，即减去倍数中数字的出现次数之后，向量中存储的各项均为0
+      if(all_of(c.begin(), c.end(), [](int x) {return x >= 0;})) return 1;
   }
   return 0;
 }
 
 int main()
 {
+  FAST
   int t = 1;
   while(t--)
   {
