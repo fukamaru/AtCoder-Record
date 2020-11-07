@@ -18,7 +18,9 @@ xy平面上に２直線y = -100, y = 100で囲まれた通路があります。
 **制約**
 + 入力はすべて整数
 + $$ 
-1\ge\left\|S\right\|\ge2\times10^5 
+begin{flalign*}
+&1\ge\left\|S\right\|\ge2\times10^5
+end{flalign*}
 $$
 + _S_の各文字は'1'~'9'のいずれか
 
